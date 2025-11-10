@@ -11,7 +11,6 @@ from PIL import Image
 from utils.dataset import get_loader
 from model import myModel
 from utils.metrics import Evaluator
-from utils.utils import plot_curve, store_restored
 from utils.uranker.uranker_utils import build_model, get_option
 
 
