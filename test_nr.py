@@ -91,22 +91,21 @@ class Tester(object):
                 )  # B, H, W, C
 
                 self.evaluator.evaluation(pred, None)
-                if self.args.store:
-                    if not os.path.exists(
+                if not os.path.exists(
+                    "/".join(self.args.ckpt.split("/")[:-1])
+                    + f"/pred/{self.args.dataset}"
+                ):
+                    os.makedirs(
                         "/".join(self.args.ckpt.split("/")[:-1])
                         + f"/pred/{self.args.dataset}"
-                    ):
-                        os.makedirs(
-                            "/".join(self.args.ckpt.split("/")[:-1])
-                            + f"/pred/{self.args.dataset}"
-                        )
-                    Image.fromarray((pred[0] * 255).astype(np.uint8)).save(
-                        "/".join(self.args.ckpt.split("/")[:-1])
-                        + f"/pred/{self.args.dataset}"
-                        + "/"
-                        + fn[0]
-                        + ".png"
                     )
+                Image.fromarray((pred[0] * 255).astype(np.uint8)).save(
+                    "/".join(self.args.ckpt.split("/")[:-1])
+                    + f"/pred/{self.args.dataset}"
+                    + "/"
+                    + fn[0]
+                    + ".png"
+                )
                 loop.set_description("[Testing]")
         uiqm_, uciqe_, uranker_ = self.evaluator.getMean()
 
@@ -131,7 +130,6 @@ def main():
         type=str,
     )
     parser.add_argument("--dataset", type=str, default="CH60")
-    parser.add_argument("--store", action="store_true", default=False)
 
     args = parser.parse_args()
 
