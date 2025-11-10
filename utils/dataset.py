@@ -145,7 +145,6 @@ class DatasetFromFolder_NR(data.Dataset):
         _, file = os.path.split(self.data_filenames[index])
 
         if self.resize:
-            # 以短邊為 data_size 等比例縮放
             w, h = input_img.size
             if w < h:
                 new_w = self.data_size
