@@ -21,12 +21,10 @@ class Tester(object):
 
         self.deep_model = myModel(
             in_channels=3, feature_channels=32, use_white_balance=True
-        )  ## V3
+        )
 
-        options = get_option("/ssd4/chingheng/UWIE/ourWork/utils/uranker/URanker.yaml")
-        options["model"][
-            "resume_ckpt_path"
-        ] = "/ssd4/chingheng/UWIE/ourWork/utils/uranker/URanker_ckpt.pth"
+        options = get_option(r"utils/uranker/URanker.yaml")
+        options["model"]["resume_ckpt_path"] = r"utils/uranker/URanker_ckpt.pth"
         self.uranker_model = build_model(options["model"])
         self.uranker_model = self.uranker_model.cpu()
         self.uranker_model.eval()
@@ -50,15 +48,15 @@ class Tester(object):
 
         args.uccs = False
         if args.dataset == "CH60":
-            args.test_root = "/ssd4/UnderWaterDataset/test_unpaired_img/challenging-60/"
+            args.test_root = "/ssd6/UnderWaterDataset/test_unpaired_img/challenging-60/"
         elif args.dataset == "EUVP":
             args.test_root = (
-                "/ssd4/UnderWaterDataset/test_unpaired_img/EUVP/validation/"
+                "/ssd6/UnderWaterDataset/test_unpaired_img/EUVP/validation/"
             )
         elif args.dataset == "U45":
-            args.test_root = "/ssd4/UnderWaterDataset/test_unpaired_img/U45/"
+            args.test_root = "/ssd6/UnderWaterDataset/test_unpaired_img/U45/"
         elif args.dataset == "UCCS":
-            args.test_root = "/ssd4/UnderWaterDataset/test_unpaired_img/UCCS/"
+            args.test_root = "/ssd6/UnderWaterDataset/test_unpaired_img/UCCS/"
             args.uccs = True
 
         self.dataloader = get_loader(
