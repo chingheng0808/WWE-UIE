@@ -109,7 +109,7 @@ python test.py \
 ```
 
 ## Evaluation (non-reference datasets)
-Note on non-reference metrics: we re-implement NIQE and UCIQE in Python, so the absolute values may differ slightly from those reported in the original papers. However, our method still achieves top-ranked relative scores.
+Note on non-reference metrics: we re-implement NIQE and UCIQE in Python, so the values may differ slightly from those reported in the original papers (previous measured by public github repo. in Matlab). However, our method still achieves top-ranked relative scores.
 
 If you would like to include URanker as one of the evaluation metrics, please download the [URanker pretrained weights]() and place them under `utils/uranker/`.
 
