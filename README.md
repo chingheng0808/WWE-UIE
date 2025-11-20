@@ -1,6 +1,8 @@
 # WWE-UIE (WACV 2026) [[paper]]()
 [Ching-Heng Cheng](https://scholar.google.com/citations?user=2UmoEfcAAAAJ&hl=zh-TW), Jen-Wei Lee, [Chia-Ming Lee](https://ming053l.github.io/), [Chih-Chung Hsu](https://cchsu.info/wordpress/)
 
+Advanced Computer Vision LAB, National Cheng Kung University and National Yang Ming Chiao Tung University.
+
 This is a PyTorch implementation for "WWE-UIE: A Wavelet & White Balance Efficient Network for Underwater Image Enhancement." This document summarizes the environment requirements, dataset layout, and common commands you need to run the project.
 
 Arch.
