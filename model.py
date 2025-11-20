@@ -159,15 +159,12 @@ class BasicLayer(nn.Module):
         super(BasicLayer, self).__init__()
         self.fwawb = WaveletEnhanceBlock(feature_channels)
         self.sgfb = SGFB(feature_channels)
-        self.alpha = nn.Parameter(torch.zeros(1), requires_grad=True)
 
     def forward(self, x):
         res = x
         x = self.fwawb(x) + x
         x = self.sgfb(x)
-        # alpha = torch.sigmoid(self.alpha)
-        # x = alpha * x + (1 - alpha) * res
-        return x + res
+        return 0.5 * x + 0.5 * res
 
 
 class Downsample(nn.Module):

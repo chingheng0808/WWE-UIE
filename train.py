@@ -87,28 +87,28 @@ class Trainer(object):
             )
         #### ALL DATASET RESIZED TO 256x256 ####
         if args.dataset == "EUVP-d":  # 256x256
-            args.train_root = "/ssd6/UnderWaterDataset/train/EUVP_d/"
-            args.val_root = "/ssd6/UnderWaterDataset/val/EUVP_d/"
+            args.train_root = "/ssddd/chingheng/UnderWaterDataset/EUVP-Dark/train/"
+            args.val_root = "/ssddd/chingheng/UnderWaterDataset/EUVP-Dark/val/"
             args.datasize = 256
             args.resize = False
         elif args.dataset == "EUVP-s":  # 320x240
-            args.train_root = "/ssd6/UnderWaterDataset/train/EUVP_s/"
-            args.val_root = "/ssd6/UnderWaterDataset/val/EUVP_s/"
+            args.train_root = "/ssddd/chingheng/UnderWaterDataset/EUVP-Scene/train/"
+            args.val_root = "/ssddd/chingheng/UnderWaterDataset/EUVP-Scene/val/"
             args.datasize = 256  # while validating, don't resize
             args.resize = True
         elif args.dataset == "UIEB":  # 1280x~800 => 256x256
-            args.train_root = "/ssd6/UnderWaterDataset/train/UIEB/"
-            args.val_root = "/ssd6/UnderWaterDataset/val/UIEB/"
+            args.train_root = "/ssddd/chingheng/UnderWaterDataset/UIEB/train/"
+            args.val_root = "/ssddd/chingheng/UnderWaterDataset/UIEB/val/"
             args.datasize = 256
             args.resize = True
         elif args.dataset == "UFO":  # 320x240
-            args.train_root = "/ssd6/UnderWaterDataset/train/UFO_120/"
-            args.val_root = "/ssd6/UnderWaterDataset/val/UFO_120/"
+            args.train_root = "/ssddd/chingheng/UnderWaterDataset/UFO-120/train/"
+            args.val_root = "/ssddd/chingheng/UnderWaterDataset/UFO-120/val/"
             args.datasize = 256  # while validating, don't resize
             args.resize = True
         elif args.dataset == "LSUI":  # 720x405 => 256x256
-            args.train_root = "/ssd6/UnderWaterDataset/train/LSUI/"
-            args.val_root = "/ssd6/UnderWaterDataset/val/LSUI/"
+            args.train_root = "/ssddd/chingheng/UnderWaterDataset/LSUI/train/"
+            args.val_root = "/ssddd/chingheng/UnderWaterDataset/LSUI/val/"
             args.datasize = 256
             args.resize = True
 
@@ -162,8 +162,9 @@ class Trainer(object):
                     + 0.5 * hvi_loss
                     + 0.1 * ssim_loss
                     + 0.1 * vgg_loss
-                    + 0.4 * edge_loss
+                    + 0.1 * edge_loss
                 )
+                # print(l1_loss.item(), hvi_loss.item(), ssim_loss.item(), vgg_loss.item(), edge_loss.item())
 
                 loss_mean += final_loss.item()
 
@@ -178,7 +179,6 @@ class Trainer(object):
             )
             if epoch % self.args.epoch_val == 0:
                 self.deep_model.eval()
-                # ssim_, psnr_, uiqm_, uciqe_ = self.validation()
                 ssim_, psnr_ = self.validation()
 
                 if psnr_ > best_psnr:
@@ -191,8 +191,6 @@ class Trainer(object):
                         "best epoch": epoch,
                         "best PSNR": best_psnr,
                         "best SSIM": ssim_,
-                        # "best UIQM": uiqm_,
-                        # "best UCIQE": uciqe_,
                     }
                     with open(
                         os.path.join(self.model_save_path, "records.txt"), "a"
@@ -203,7 +201,6 @@ class Trainer(object):
                         str_ += "\n####################################"
                         f.write(str_ + "\n")
                 with open(os.path.join(self.model_save_path, "records.txt"), "a") as f:
-                    # str_ = f"[epoch: {epoch}], PSNR: {psnr_}, SSIM: {ssim_}, UIQM: {uiqm_}, UCIQE: {uciqe_}"
                     str_ = f"[epoch: {epoch}], PSNR: {psnr_}, SSIM: {ssim_}"
                     f.write(str_ + "\n")
                 self.deep_model.train()
@@ -242,16 +239,9 @@ class Trainer(object):
 
                 self.evaluator.evaluation(pred, label)
                 loop.set_description("[Validation]")
-        # ssim_, psnr_, uiqm_, uciqe_ = self.evaluator.getMean()
         ssim_, psnr_ = self.evaluator.getMean()
 
-        print(
-            # "[Validation] SSIM: %.4f, PSNR: %.4f, UIQM: %.4f, UCIQE: %.4f"
-            "[Validation] SSIM: %.4f, PSNR: %.4f"
-            % (ssim_, psnr_)
-            # % (ssim_, psnr_, uiqm_, uciqe_)
-        )
-        # return ssim_, psnr_, uiqm_, uciqe_
+        print("[Validation] SSIM: %.4f, PSNR: %.4f" % (ssim_, psnr_))
         return ssim_, psnr_
 
 
@@ -274,7 +264,7 @@ def main():
 
     parser.add_argument("--num_workers", type=int, default=4)
 
-    parser.add_argument("--dataset", type=str, default="UIEB")
+    parser.add_argument("--dataset", type=str, default="UIEB", choices=["UIEB", "LSUI", 'UFO', 'EUVP-s', 'EUVP-d'])
     parser.add_argument("--model_name", type=str, default="WWE-UIE")
     parser.add_argument("--save_path", type=str, default="./output/")
 
@@ -288,7 +278,7 @@ def main():
 
 if __name__ == "__main__":
     start = time.time()
-    seed_everything(9999)
+    seed_everything(7)
 
     main()
 
