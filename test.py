@@ -40,23 +40,23 @@ class Tester(object):
         self.deep_model.eval()
 
         if args.dataset == "EUVP-d":  # 256x256
-            args.test_root = "/ssd6/UnderWaterDataset/test/EUVP_d/"
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/EUVP-Dark//test"
             args.datasize = 256
             args.resize = False
         elif args.dataset == "EUVP-s":  # 320x240
-            args.test_root = "/ssd6/UnderWaterDataset/test/EUVP_s/"
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/EUVP-Scene/test/"
             args.datasize = 256
             args.resize = False
         elif args.dataset == "UIEB":  # 1280x~800 => 256x256
-            args.test_root = "/ssd6/UnderWaterDataset/test/UIEB/"
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/UIEB/test/"
             args.datasize = 256
             args.resize = True
         elif args.dataset == "UFO":  # 320x240
-            args.test_root = "/ssd6/UnderWaterDataset/test/UFO_120/"
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/UFO-120/test/"
             args.datasize = 256
             args.resize = False
         elif args.dataset == "LSUI":  # 720x405 => 256x256
-            args.test_root = "/ssd6/UnderWaterDataset/test/LSUI/"
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/LSUI/test/"
             args.datasize = 256
             args.resize = True
 

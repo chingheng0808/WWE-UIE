@@ -2,10 +2,10 @@
 
 This is a PyTorch implementation for "WWE-UIE: A Wavelet & White Balance Efficient Network for Underwater Image Enhancement." This document summarizes the environment requirements, dataset layout, and common commands you need to run the project.
 
-### Full-reference (with ground truth annotations at the bottom right)
-| <img src="./demo/UFO.gif" height=180 width=240 alt="demo1"> <img src="./demo/UFO_GT.jpg" height=90 width=120 alt="demo1"> | <img src="./demo/LSUI.gif" height=180 width=240 alt="demo2"> <img src="./demo/LSUI_GT.jpg" height=90 width=120 alt="demo1"> |
+### Full-reference (with ground truth)
+| <img src="./demo/UFO.gif" height=180 width=240 alt="demo1"> <img src="./demo/UFO_GT.jpg" height=90 width=120 alt="demo1_GT"> | <img src="./demo/LSUI.gif" height=180 width=240 alt="demo2"> <img src="./demo/LSUI_GT.jpg" height=90 width=120 alt="demo2_GT"> |
 ### None reference
-| <img src="./demo/U45.gif" height=180 width=240 alt="demo3"> | <img src="./demo/CC7.gif" height=180 width=240 alt="demo4"> |
+| <img src="./demo/U45.gif" height=180 width=240 alt="demo3"> | <img src="./demo/CH60.gif" height=180 width=240 alt="demo4"> | <img src="./demo/CC7.gif" height=180 width=240 alt="demo5"> |
 
 
 ## Requirements
@@ -76,8 +76,11 @@ UnderWaterDataset/
     └── green/*.png
 ```
 
-## Training
+## Pretrained Weight
+[[UIEB]]()
 
+## Training
+Training from scratch is efficient as our light-weight design.
 ```bash
 python train.py \
   --dataset [dataset] \
@@ -99,7 +102,10 @@ python test.py \
   --ckpt [checkpoint.pth] \
 ```
 
-## Evaluation (non-reference metrics)
+## Evaluation (non-reference datasets)
+Note on non-reference metrics: we re-implement NIQE and UCIQE in Python, so the absolute values may differ slightly from those reported in the original papers. However, our method still achieves top-ranked relative scores.
+
+If you would like to include URanker as one of the evaluation metrics, please download the [URanker pretrained weights]() and place them under `utils/uranker/`. The NIQE parameters can be downloaded [here]() and should be placed under `utils/`.
 
 ```bash
 python test_nr.py \

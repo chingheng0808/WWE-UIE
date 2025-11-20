@@ -45,18 +45,14 @@ class Tester(object):
         self.deep_model = self.deep_model.to("cuda")
         self.deep_model.eval()
 
-        args.uccs = False
         if args.dataset == "CH60":
-            args.test_root = "/ssd6/UnderWaterDataset/test_unpaired_img/challenging-60/"
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/Challenging-60/test/"
         elif args.dataset == "EUVP":
             args.test_root = (
-                "/ssd6/UnderWaterDataset/test_unpaired_img/EUVP/validation/"
+                "/ssddd/chingheng/UnderWaterDataset/EUVP/test/"
             )
         elif args.dataset == "U45":
-            args.test_root = "/ssd6/UnderWaterDataset/test_unpaired_img/U45/"
-        elif args.dataset == "UCCS":
-            args.test_root = "/ssd6/UnderWaterDataset/test_unpaired_img/UCCS/"
-            args.uccs = True
+            args.test_root = "/ssddd/chingheng/UnderWaterDataset/U45/test/"
 
         self.dataloader = get_loader(
             self.args.test_root,
@@ -68,7 +64,6 @@ class Tester(object):
             shuffle=False,
             pin_memory=True,
             non_ref=True,
-            uccs=self.args.uccs,
         )
         # print(len(self.dataloader))
 
@@ -107,13 +102,12 @@ class Tester(object):
                     + ".png"
                 )
                 loop.set_description("[Testing]")
-        uiqm_, uciqe_, uranker_ = self.evaluator.getMean()
+        niqe_, uciqe_, uranker_ = self.evaluator.getMean()
 
         print(
-            "[Testing] UIQM: %.4f, UCIQE: %.4f, URanker: %.4f"
-            % (uiqm_, uciqe_, uranker_)
+            "[Testing] NIQE: %.4f, UCIQE: %.4f, URanker: %.4f"
+            % (niqe_, uciqe_, uranker_)
         )
-        # return ssim_, psnr_, uiqm_, uciqe_
         dummy = torch.randn(1, 3, 256, 256).cuda()
         flops, params = profile(self.deep_model, inputs=(dummy,))
         flops, params = clever_format([flops, params], "%.3f")
