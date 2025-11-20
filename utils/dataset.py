@@ -118,21 +118,13 @@ class DatasetFromFolder(data.Dataset):
 
 class DatasetFromFolder_NR(data.Dataset):
     def __init__(
-        self, data_root, transform=ToTensor(), data_size=256, resize=False, uccs=False
+        self, data_root, transform=ToTensor(), data_size=256, resize=True
     ):
         super(DatasetFromFolder_NR, self).__init__()
 
-        if uccs:
-            fold = os.listdir(data_root)
-            data_filenames = [
-                join(data_root, fold, x)
-                for x in os.listdir(join(data_root, fold))
-                if is_image_file(x)
-            ]
-        else:
-            data_filenames = [
-                join(data_root, x) for x in os.listdir(data_root) if is_image_file(x)
-            ]
+        data_filenames = [
+            join(data_root, x) for x in os.listdir(data_root) if is_image_file(x)
+        ]
 
         data_filenames.sort()
         self.data_filenames = data_filenames
@@ -180,11 +172,10 @@ def get_loader(
     shuffle=True,
     pin_memory=True,
     non_ref=False,
-    uccs=False,
 ):
     if non_ref:
         dataset = DatasetFromFolder_NR(
-            data_root=data_root, data_size=data_size, resize=resize, uccs=uccs
+            data_root=data_root, data_size=data_size, resize=resize
         )
     else:
         dataset = DatasetFromFolder(
