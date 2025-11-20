@@ -83,7 +83,7 @@ UnderWaterDataset/
 ```
 
 ## Pretrained Weight
-[[UIEB]]()
+[[UIEB]](https://drive.google.com/file/d/1c80kkDbgpLD1MtqVLql1Y1NQVD7IzxiO/view?usp=sharing)
 
 ## Training
 Training from scratch is efficient as our light-weight design.
@@ -111,7 +111,7 @@ python test.py \
 ## Evaluation (non-reference datasets)
 Note on non-reference metrics: we re-implement NIQE and UCIQE in Python, so the values may differ slightly from those reported in the original papers (previous measured by public github repo. in Matlab). However, our method still achieves top-ranked relative scores.
 
-If you would like to include URanker as one of the evaluation metrics, please download the [URanker pretrained weights]() and place them under `utils/uranker/`.
+If you would like to include URanker as one of the evaluation metrics, please download the [URanker pretrained weights](https://drive.google.com/file/d/1vBmD3ZvgVtz8xBTh3UmHGO72cAwlLG7G/view?usp=sharing) and place them under `utils/uranker/`.
 
 ```bash
 python test_nr.py \
