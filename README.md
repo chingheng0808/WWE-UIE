@@ -2,6 +2,9 @@
 
 This is a PyTorch implementation for "WWE-UIE: A Wavelet & White Balance Efficient Network for Underwater Image Enhancement." This document summarizes the environment requirements, dataset layout, and common commands you need to run the project.
 
+Arch.
+<img src="./demo/uie_arch.png" width=720 alt="wwe-uie-arch">
+
 ### Full-reference (with ground truth)
 | <img src="./demo/UFO.gif" height=180 width=240 alt="demo1"> <img src="./demo/UFO_GT.jpg" height=90 width=120 alt="demo1_GT"> | <img src="./demo/LSUI.gif" height=180 width=240 alt="demo2"> <img src="./demo/LSUI_GT.jpg" height=90 width=120 alt="demo2_GT"> |
 ### None reference
