@@ -150,7 +150,7 @@ class Trainer(object):
 
                 with torch.no_grad():
                     label_hvi = self.hvi_net.trans.HVIT(label)
-                    pred_hvi = self.hvi_net.trans.HVIT(pred.clamp(0.0, 1.0))
+                pred_hvi = self.hvi_net.trans.HVIT(pred.clamp(0.0, 1.0))
 
                 hvi_loss = self.L1L(pred_hvi, label_hvi)
                 l1_loss = self.L1L(pred, label)
